@@ -1,0 +1,160 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %} Home Page {% endblock title %}
+<!-- Links -->
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock links %}
+<!-- Scripts -->
+{% block scripts %}
+<script src="{% static 'js/owl-carousel.min.js' %}"></script>
+
+<script>
+	$('.owl-carousel').owlCarousel({
+		loop: true,
+		margin: 10,
+		nav: false,
+		dots: false,
+		responsive: {
+			1000: {
+				items: 1,
+			},
+			600: {
+				items: 1,
+			},
+			0: {
+				items: 1,
+			},
+		},
+		autoplay: true,
+		autoplayTimeout: 5000,
+	});
+</script>
+{% endblock scripts %}
+
+<!-- Content -->
+{% block content %}
+<!-- Carousel -->
+<div class="container">
+	<section id="carousel">
+		<div class="owl-carousel owl-theme">
+			{% for article in feautred_articles_5 %}
+			<div class="item">
+				<article class="article-carousel-view" style="background-image: url('{{article.thumbnail.url}}');">
+					<div class="overlay">
+						<div class="article-content">
+							<h1><a href="{{ article.get_article_url }}" class="text-white">{{article.title}}</a></h1>
+							<p>{{article.overview}}</p>
+							<div class="article-author">
+								<img src="{{ article.author.profile_pic.url }}" alt="{{ article.author }}" />
+								<h6 class="author-name"><a href="" class="text-white">Written By: {{ article.author }}</a></h6>
+								<time> - {{ article.timestamp | timesince }}</time>
+								<div class="count"><i class="fas fa-eye"></i> {{ article.view_count }}</div>
+								<div class="count"><i class="far fa-comment"></i> {{ article.comment_count }}</div>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+</div>
+<!-- End Carousel -->
+<!-- Welcome -->
+<section id="welcome" class="sect">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<h1 class="text-main display-4 text-uppercase">Hi,I'm Wageh</h1>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenetur voluptatem
+					consequatur cumque adipisci cum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenetur voluptatem
+					consequatur cumque adipisci cum.
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<img src="{% static 'img/about.jpg' %}" alt="" class="img-fluid main-shadow" />
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Welcome -->
+<!-- Article View -->
+<section class="sect" id="articlesView">
+	<div class="container">
+		<h1 class="sect-headline">Recent <span class="text-main">Articles</span></h1>
+		<p class="lead">
+			See the latest articles our team has team recently
+		</p>
+		<div class="row">
+			{% for article in latest_articles_3 %}
+			<div class="col-lg-4 col-md-6" style="margin-bottom: 5px;">
+				<div class="article-card">
+					<div class="card-image">
+						<img src="{{article.thumbnail.url}}" alt="" style="height: 235px;" />
+					</div>
+					<div class="card-content">
+						<div class="categories">
+							{% for cat in article.categories.all %}
+							<a href="">{{ cat }}</a>
+							{% endfor %}
+						</div>
+						<h3 class="title">
+							<h3 class="title"><a href="{{ article.get_article_url }}">{{article.title}}</a></h3>
+						</h3>
+						<p>{{ article.overview }}</p>
+					</div>
+					<footer class="article-author sm">
+						<img src="{{ article.author.profile_pic.url }}" alt="{{ article.author }}" />
+						<h6 class="author-name"><a href="{{ article.author.get_author_url }}">{{ article.author }}</a></h6>
+						<div class="counts">
+							<div class="count"><i class="fas fa-eye"></i> {{ article.view_count }}</div>
+							<div class="count"><i class="far fa-comment"></i> {{ article.comment_count }}</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- End Article View -->
+<!-- Follow Us --
+<section class="sect" id="follow" style="background-image: url('/static/img/follow.jpg');">
+	<div class="overlay"></div>
+	<div class="container text-center">
+		<h1 class="sect-headline"><span class="text-main">Everywhere</span> with Us?</h1>
+		<p class="lead" style="position: relative;">
+			What do you think? if you wanna be with us all the time, follow us in the following social sites
+		</p>
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="soc-item">
+					<a href="" class="icon" style="background-color: #395693;"><i class="fab fa-facebook-f"></i></a>
+					<h3>Facebook</h3>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="soc-item">
+					<a href="" class="icon" style="background-color: #34d1f7;"><i class="fab fa-twitter"></i></a>
+					<h3>Twitter</h3>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="soc-item">
+					<a href="" class="icon" style="background-color: #d62977;"><i class="fab fa-instagram"></i></a>
+					<h3>Instagram</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+-- End Follow Us -->
+{% include 'subscribe.html' %} {% endblock content %}

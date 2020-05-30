@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %} About Us {% endblock title %}
+<!-- Links -->
+{% block links %}
+<style>
+	p {
+		color: #333;
+	}
+	.dark-theme p {
+		color: #eee;
+	}
+	.item {
+		padding: 10px;
+	}
+	.item h1 {
+		font-size: 30px;
+		padding: 10px 0;
+	}
+	.item p {
+		padding-left: 10px;
+	}
+</style>
+{% endblock links %}
+<!-- Content -->
+{% block content %}
+<section class="sect">
+	<div class="container">
+		<h1 class="sect-headline">About Us</h1>
+		<div class="row">
+			<div class="col-lg-6">
+				<p style="margin-top: 10px;">
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenetur voluptatem
+					consequatur cumque adipisci cum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenetur voluptatem
+					consequatur cumque adipisci cum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenet uvoluptatem
+					consequatur cumque adipisci cum.
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<img src="{% static 'img/about.jpg' %}" alt="" class="img-fluid" />
+			</div>
+		</div>
+
+		<div class="item">
+			<h1>Our Mission</h1>
+			<p>
+				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenet uvoluptatem
+				consequatur cumque adipisci cum.
+			</p>
+		</div>
+		<div class="item">
+			<h1>Our Vision</h1>
+			<p>
+				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenet uvoluptatem
+				consequatur cumque adipisci cum.
+			</p>
+		</div>
+		<div class="item">
+			<h1>Our values</h1>
+			<p>
+				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore odit eos officia! Aspernatur quibusdam, totam sunt, neque nihil ipsa nam itaque consequuntur ut rerum tenet uvoluptatem
+				consequatur cumque adipisci cum.
+			</p>
+		</div>
+	</div>
+</section>
+{% endblock content %}

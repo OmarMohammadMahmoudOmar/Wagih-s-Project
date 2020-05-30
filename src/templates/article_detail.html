@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %} {{article.title}} {% endblock title %}
+<!-- Links -->
+{% block links %}
+<style>
+	.content {
+		width: 70%;
+		text-align: justify;
+		margin: 30px auto;
+		font-family: var(--mainFont) !important;
+	}
+	h1 {
+		text-transform: capitalize;
+	}
+	.title {
+		font-size: 45px;
+		padding: 10px;
+		line-height: 3rem;
+	}
+	#comment-add {
+		width: 80%;
+		margin: 10px auto;
+		padding: 40px 20px;
+		/* background-color: var(--secBg); */
+	}
+	#comment-add input,
+	#comment-add textarea {
+		display: block;
+		padding: 10px;
+		margin-bottom: 10px;
+		font-family: var(--mainFont);
+		font-size: 18px;
+		border: 3px solid #bcbcbc;
+		background-color: transparent;
+		width: 100%;
+		letter-spacing: 0.04rem;
+		color: var(--textColor);
+	}
+
+	#comment-add textarea {
+		height: 200px;
+	}
+	.comment {
+		background-color: var(--secBg);
+		padding: 15px 10px;
+		margin-bottom: 20px;
+		border-bottom: 3px solid var(--mainColor);
+		width: 100%;
+	}
+	.comment h1 {
+		display: inline;
+		margin-right: 10px;
+	}
+	.comment h6 {
+		font-size: 15px;
+	}
+	.comment p {
+		padding: 5px 10px;
+		font-size: 18px;
+	}
+	.comment time {
+		color: var(--mainColor);
+		display: inline;
+	}
+</style>
+{% endblock links %}
+<!-- Content -->
+{% block content %}
+<section id="article" class="sect">
+	<div class="container">
+		<header>
+			<div class="article-image">
+				<img src="{{ article.thumbnail.url }}" alt="" />
+			</div>
+			<div class="article-header-content">
+				<h1 class="title">{{ article.title }}.</h1>
+				<div class="article-author" style="margin: 10px 0;">
+					<div class="article-author" style="justify-content: space-between; width: 100%;">
+						<div style="display: flex; align-items: center;">
+							<img src="{{ article.author.profile_pic.url }}" alt="{{ article.author }}" />
+							<h6 class="author-name"><a href="">Written By: {{ article.author }}</a></h6>
+						</div>
+						<div style="display: flex;">
+							<time>{{ article.timestamp | timesince }}</time>
+							<div class="count"><i class="fas fa-eye"></i> {{ article.view_count }}</div>
+							<div class="count"><i class="far fa-comment"></i> {{ article.comment_count }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="content">
+			{{article.content|safe}}
+		</div>
+		<footer>
+			<!-- Show Comments -->
+			{% for comment in article.get_comments %}
+			<div class="comment">
+				<h6>By <a href="">{{ comment.user.username }}</a></h6>
+				<h1>{{ comment.title }}</h1>
+				<time>{{ comment.timestamp | timesince}}</time>
+				<p>{{ comment.content }}</p>
+			</div>
+			{% endfor %} {% if request.user.is_authenticated %}
+			<!-- Add A Comment -->
+			<form id="comment-add" method="POST">
+				<h1 style="font-size: 30px; padding: 10px; text-align: center;">Add a Comment Below</h1>
+				{% csrf_token %} {{form.as_p}}
+				<button type="submit" class="btn-main">Add Comment</button>
+			</form>
+			{% else %}
+			<a href="{% url 'account_login' %}" class="btn-main" style="">Login first if you want to add a comment</a>
+			{% endif %}
+		</footer>
+	</div>
+</section>
+{% endblock content %}

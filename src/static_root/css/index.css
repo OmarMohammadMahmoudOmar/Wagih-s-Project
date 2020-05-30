@@ -1,0 +1,9 @@
+/* Welcome */
+#welcome h1 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 900;
+}
+#welcome p {
+	margin-bottom: 20px;
+}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+<!-- Title -->
+{% block title %} Contact Me {% endblock title %}
+<!-- Links -->
+{% block links %}
+<style>
+	.contact-info .contact-card {
+		text-align: center;
+		background-color: var(--secBg);
+		padding: 10px;
+		margin: 10px;
+		font-size: 15px;
+		transition: 0.3s;
+		cursor: pointer;
+	}
+	.contact-info .contact-card i {
+		display: block;
+		line-height: 50px;
+		font-size: 60px;
+		padding: 20px 0;
+		color: var(--mainColor);
+	}
+	.contact-info .contact-card:hover {
+		background-color: var(--mainColor);
+		color: white;
+	}
+	.contact-info .contact-card:hover i {
+		color: white;
+	}
+	.contact-form input,
+	.contact-form textarea {
+		padding: 15px;
+		border: 0;
+		background-color: var(--secBg);
+		color: var(--textColor);
+		border-bottom: 3px solid var(--mainColor);
+		margin: 5px;
+		width: 100%;
+	}
+	.contact-form input {
+		width: calc(50% - 17px);
+		font-size: 20px;
+	}
+	@media (max-width: 991px) {
+		.contact-form input {
+			width: 100%;
+		}
+	}
+	.contact-form textarea {
+		height: 300px;
+		font-size: var(--mainFont) !important;
+		font-size: 18px;
+	}
+</style>
+{% endblock links %}
+<!-- Content -->
+{% block content %}
+<section class="sect" id="contact">
+	<div class="container">
+		<!-- <ul class="contact-info">
+			<li><i class="fas fa-phone"></i> 012743802849</li>
+			<li><i class="fas fa-email"></i> wagih@gmail.com</li>
+			<li><i class="fas fa-map-marker-alt"></i> Burg El-Burullus, Kafr El-shiekh, Egypt</li>
+		</ul> -->
+		<h1 class="sect-headline" style="margin: 20px 0;">How do you want to contact me...</h1>
+		<div class="row contact-info">
+			<div class="col-lg-4">
+				<div class="contact-card"><i class="fas fa-phone"></i> 012743802849</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="contact-card"><i class="fas fa-envelope"></i> wagih@gmail.com</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="contact-card"><i class="fas fa-map-marker-alt"></i> Burg El-Burullus, Kafr El-shiekh, Egypt</div>
+			</div>
+		</div>
+
+		{% if message_name %}
+		<h1 class="sect-headline" style="margin-top: 10px;">Thanks, {{ message_name }}</h1>
+		<p class="lead">We are going to reply as fast as possible</p>
+		{% else %} {% if request.user.is_authenticated %}
+		<form class="contact-form" method="POST">
+			{% csrf_token %}
+			<h1 class="sect-headline" style="margin: 20px 0;">Contact me</h1>
+			<input type="text" name="name" id="name" placeholder="Your name" />
+
+			<input type="email" name="email" id="email" placeholder="Your email here" />
+
+			<textarea name="content" id="textarea" placeholder="Hello, I just wanted to"></textarea>
+			<button type="submit" class="btn-main"><i class="fas fa-paper-plane"></i> Send Email</button>
+		</form>
+		{% else %}
+		<a href="{% url 'account_login' %}" class="btn-main">Login First in order to contact me</a>
+		{% endif %} {% endif %}
+	</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %} Blog {% endblock title %}
+
+<!-- Content -->
+{% block content %}
+<!-- Author Overview -->
+<section class="sect" id="overview">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3"><img src="{{ author.profile_pic.url }}" alt="" style="max-width: 100%; height: auto;" class="same-width-height" /></div>
+			<div class="col-lg-9">
+				<h1 class="display-4">{{ author }}</h1>
+				<p class="lead text-left">{{ author.discription }}</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Article View -->
+<section class="sect" id="articlesView">
+	<div class="container">
+		<h1 class="sect-headline">{{ author }}'s Articles</h1>
+		<div class="row">
+			{% for article in author_articles %}
+			<div class="col-lg-4 col-md-6" style="margin-bottom: 5px;">
+				<div class="article-card" style="background-color: var(--mainBg);">
+					<div class="card-image">
+						<img src="{{article.thumbnail.url}}" alt="" style="height: 235px;" />
+					</div>
+					<div class="card-content">
+						<div class="categories">
+							{% for cat in article.categories.all %}
+							<a href="">{{ cat }}</a>
+							{% endfor %}
+						</div>
+						<h3 class="title"><a href="{{ article.get_article_url }}">{{article.title}}</a></h3>
+						<p>{{ article.overview }}</p>
+					</div>
+					<footer class="article-author sm" style="background-color: var(--mainBg);">
+						<img src="{{ article.author.profile_pic.url }}" alt="{{ article.author }}" />
+						<h6 class="author-name"><a href="{{ article.get_article_url }}">{{ article.author }}</a></h6>
+						<div class="counts">
+							<div class="count"><i class="fas fa-eye"></i> {{ article.view_count }}</div>
+							<div class="count"><i class="far fa-comment"></i> {{ article.comment_count }}</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- End Article View -->
+{% endblock content %}

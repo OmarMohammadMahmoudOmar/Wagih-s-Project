@@ -1,0 +1,29 @@
+{% load static %}
+<!-- Subscribe -->
+<section class="sect" id="subscribe">
+	<div class="container">
+		<h1 class="sect-headline">Always With <span class="text-main">Us</span>?</h1>
+		<p class="lead">
+			Subscribe here to our newsletter so we are always together and you won't lose any advice
+		</p>
+		<div class="row">
+			<div class="col-lg-6" style="margin-bottom: 10px;">
+				<img src="{% static 'img/newsletter.jpg' %}" alt="" class="img-fluid" />
+			</div>
+			<div class="col-lg-6">
+				<h1>Subscribe NOW!</h1>
+				<p style="margin-bottom: 10px;">Only enter your name here and your email to subscribe</p>
+
+				<form method="post" id="SubscribeForm">
+					{% csrf_token %}
+					<label for="name">Name:- </label>
+					<input type="text" name="name" id="name" required maxlength="60" />
+					<label for="email">Email:- </label>
+					<input type="email" name="email" id="email" required />
+					<button type="submit" class="btn-main"><i class="fas fa-paper-plane"></i> Subscribe</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Subscribe -->

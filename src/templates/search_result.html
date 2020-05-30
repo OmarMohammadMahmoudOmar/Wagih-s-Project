@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% load static %}
+<!-- Title -->
+{% block title %} Blog {% endblock title %}
+
+<!-- Content -->
+{% block content %}
+<!-- Article View -->
+<section class="sect" id="articlesView">
+	<div class="container">
+		<h1 class="sect-headline">{{query}}</h1>
+		<p class="lead">
+			You can also use the search button above if you look for a specific article
+		</p>
+		<div class="row">
+			{% for article in queryset %}
+			<div class="col-lg-4 col-md-6" style="margin-bottom: 5px;">
+				<div class="article-card">
+					<div class="card-image">
+						<img src="{{article.thumbnail.url}}" alt="" style="height: 235px;" />
+					</div>
+					<div class="card-content">
+						<div class="categories">
+							{% for cat in article.categories.all %}
+							<a href="">{{ cat }}</a>
+							{% endfor %}
+						</div>
+						<h3 class="title"><a href="{{ article.get_article_url }}">{{article.title}}</a></h3>
+						<p>{{ article.overview }}</p>
+					</div>
+					<footer class="article-author sm">
+						<img src="{{ article.author.profile_pic.url }}" alt="{{ article.author }}" />
+						<h6 class="author-name"><a href="">{{ article.author }}</a></h6>
+						<div class="counts">
+							<div class="count"><i class="fas fa-eye"></i> {{ article.view_count }}</div>
+							<div class="count"><i class="far fa-comment"></i> {{ article.comment_count }}</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<!-- End Article View -->
+{% endblock content %}

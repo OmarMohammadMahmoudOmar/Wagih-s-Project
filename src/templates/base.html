@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %} Authentication {% endblock title %} - Pyramids Heroes</title>
+		<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+		{% block links %} {% endblock links %}
+		<!-- <link rel="stylesheet" href="{% static 'css/icons.css' %}" /> -->
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+		<script>
+			let theme = localStorage.getItem('theme');
+			if (theme !== null) {
+				if (theme == 'dark') {
+					document.documentElement.classList.add('dark-theme');
+				} else if (theme == 'light') {
+					document.documentElement.classList.remove('dark-theme');
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<!-- Loader -->
+		<div class="loader-bg">
+			<div id="loader">
+				<div id="box"></div>
+				<div id="hill"></div>
+			</div>
+		</div>
+		<!-- End Loader -->
+
+		<div class="loader-after">
+			<!-- Navbar -->
+			<nav id="navbar">
+				<div class="container">
+					<a href="{% url 'home' %}" class="brand">Pyramids <span class="text-main">Heroes</span></a>
+					<div class="nav-icon">
+						<a href="#" class="link" id="themeSun"><i class="far fa-sun"></i></a>
+					</div>
+					<div class="nav-icon">
+						<a href="" class="link" id="searchButton"><i class="fas fa-search"></i></a>
+					</div>
+					<ul class="nav">
+						<li class="item"><a href="{% url 'home' %}" class="link active">Home</a></li>
+						<li class="item"><a href="{% url 'blog' %}" class="link">Blog</a></li>
+						<li class="item"><a href="{% url 'about' %}" class="link">About</a></li>
+						<li class="item"><a href="{% url 'contact' %}" class="link">Contact</a></li>
+						<div class="vertical-divider"></div>
+						{% if not request.user.is_authenticated %}
+						<li class="item"><a href="{% url 'account_login' %}" class="link">Log In</a></li>
+						<li class="item"><a href="{% url 'account_signup' %}" class="link">Sign In</a></li>
+						{% else %}
+						<li class="item"><a href="{% url 'account_logout' %}" class="link">Logout</a></li>
+						{% endif %}
+					</ul>
+					<button class="toggler nav-icon"><i class="fas fa-bars"></i></button>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+
+			<!-- Search Input -->
+			<div class="search-bg">
+				<form action="{% url 'search' %}" id="search"><input type="search" name="q" placeholder="Searching for what?..." /></form>
+				<div class="close" id="closeButton"><i class="fas fa-times"></i></div>
+			</div>
+
+			<main>
+				{% block content %} {% endblock content %}
+			</main>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">2020. Bounieg &copy; | This website is created by <a href="{% url 'author' 2 %}" class="text-main">Omar Mohammad</a></div>
+						<div class="col-md-6">
+							<ul class="social">
+								<li>
+									<a href=""><i class="fab fa-facebook-f"></i></a>
+								</li>
+								<li>
+									<a href=""><i class="fab fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href=""><i class="fab fa-instagram"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End Footer -->
+		</div>
+
+		<!-- Scripts -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		{% block scripts %} {% endblock scripts %}
+		<script src="{% static 'js/nicescroll.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
+		<script>
+			$('body').niceScroll({
+				cursorcolor: getComputedStyle(document.documentElement).getPropertyValue('--mainColor'),
+				cursorborderradius: 0,
+				cursorborder: 'none',
+			});
+		</script>
+	</body>
+</html>
